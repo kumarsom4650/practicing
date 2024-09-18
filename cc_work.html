@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Upload File</title>
+    <script src="https://sdk.amazonaws.com/js/aws-sdk-2.804.0.min.js"></script>
+    <script>
+        AWS.config.update({
+            accessKeyId: 'YOUR_AWS_ACCESS_KEY_ID',
+            secretAccessKey: 'YOUR_AWS_SECRET_ACCESS_KEY',
+            region: 'us-east-1'  // Update to your region
+        });
+
+        function uploadFile() {
+            const file = document.getElementById('fileUpload').files[0];
+            const s3 = new AWS.S3();
+            const params = {
+                Bucket: 'your-s3-bucket-name',
+                Key: file.name,
+                Body: file,
+                ACL: 'public-read'  // Set according to your permission preference
+            };
+
+            s3.upload(params, function(err, data) {
+                if (err) {
+                    console.log("Error", err);
+                } else {
+                    console.log("Upload Success", data.Location);
+                    alert('File Uploaded Successfully');
+                }
+            });
+        }
+    </script>
+</head>
+<body>
+    <h1>Upload File to S3</h1>
+    <input type="file" id="fileUpload" />
+    <button onclick="uploadFile()">Upload</button>
+</body>
+</html>
