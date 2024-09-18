@@ -1,0 +1,7 @@
+#screen{
+    background-color: rgb(240, 168, 36);
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
